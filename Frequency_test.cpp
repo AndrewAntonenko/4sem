@@ -7,6 +7,14 @@
 
 std::string prepare(std::string &word);
 
+/*
+Можно сделать псевдоним, чтобы не писать длинные названия типов:
+using Pair = std::pair<std::string, int>;
+
+Это то же самое, что и typedef std::pair<std::string, int> Pair;
+Но лучше писать первый вариант, т.к. он работает ещё и для шаблонов, о которых мы во второй части семестра 
+поговорим
+*/
 bool comp(std::pair<std::string, int> lhs, std::pair<std::string, int> rhs);
 
 int main(int argc, char *argv[]) {
@@ -24,15 +32,24 @@ int main(int argc, char *argv[]) {
     } else {
         std::cout << "fInput: " << fInput.is_open() << "\n";
         std::cout << "fOutput: " << fOutput.is_open() << "\n";
+        /*
+        это только под линуксом скомпилируется
+        */
         perror("LOL");
         exit(EXIT_FAILURE);
     }
 
     std::vector<std::pair<std::string, int >> statistics;
+    /*
+    const auto& ?
+    */
     for (auto &item : map)
         statistics.emplace_back(item.first, item.second);
 
     std::sort(statistics.begin(), statistics.end(), comp);
+    /*
+    const auto& ?
+    */
     for (auto i : statistics)
         fOutput << i.first << " " << i.second << "\n";
 
@@ -43,6 +60,11 @@ int main(int argc, char *argv[]) {
 }
 
 std::string prepare(std::string &word) {
+    /*
+    fixit:
+    1) *(word.end() - 1) это тоже самое, что word.back();
+    2) надо сначало проверить на "не пусто", а потом на isalpha ... prepare("") упадет
+    */
     while ((!isalpha(*(word.end() - 1)) && !word.empty()))
         word.pop_back();
 
