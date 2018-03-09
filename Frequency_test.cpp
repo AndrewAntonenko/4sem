@@ -5,6 +5,10 @@
 #include <map>
 #include <set>
 
+/*
+дедлайн был 23го. вы залили позже. присылайте всё вовремя, пожалуйста. 
+*/
+
 std::string prepare(std::string &word);
 
 /*
